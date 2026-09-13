@@ -6,9 +6,11 @@ A Solidity/Foundry implementation of the [whitepaper](inverse_price_token_whitep
 
 ## Run
 
-Requires Foundry; tested with v1.4.3 and Solidity 0.8.26 (Cancun EVM).
+Requires Git, Python 3, and Foundry (`forge`, `cast`, `anvil`); tested with Foundry v1.4.3 and Solidity 0.8.26 (Cancun EVM). Solidity dependencies are installed by the bootstrap script; the Python scripts use the standard library.
 
 ```sh
+git clone https://github.com/calmdentist/inversecoin.git
+cd inversecoin
 bash scripts/bootstrap.sh
 forge build
 forge test
@@ -26,7 +28,7 @@ The demo needs no wallet, RPC, or funds. With 1,000 shares and 1,000 six-decimal
 | Bob buys 100 | 0.694444 | 188.509091 | 0 |
 | Alice sells all shares | 0.854224 | 0 | +118.032786 |
 
-The difference from the whitepaper's rounded 118.032787 is less than one raw quote unit. Gas and application fees are excluded.
+The result is one raw quote unit below the whitepaper's rounded display of 118.032787, and less than one raw quote unit below the exact value. Gas and application fees are excluded.
 
 ## Contracts
 
@@ -98,3 +100,13 @@ python3 scripts/deploy.py --rpc-url robinhood --account YOUR_KEYSTORE --broadcas
 The driver writes a timestamped record under `artifacts/deployments/` containing the contract addresses, pool ID, reserves, settings, network verification and public transaction receipts. A dry-run report is clearly marked as a simulation. Rerunning the same configuration reuses the deployed market and finishes any missing initialization; it does not seed twice. Seed liquidity remains permanently locked under the existing contract policy.
 
 Run the complete deployment/recovery tests with `python3 scripts/test_deployment.py`; this starts and stops a disposable local Anvil chain. See [deployment instructions](docs/DEPLOYMENT.md) for configuration, testnet, hardware wallets and recovery.
+
+## Repository guide
+
+- [Architecture and rounding](docs/ARCHITECTURE.md)
+- [Deployment configuration and recovery](docs/DEPLOYMENT.md)
+- [Chart, routing, and P&L integration requirements](docs/INTEGRATION.md)
+- [Validation record](docs/VALIDATION.md)
+- [Contributing and checks](CONTRIBUTING.md)
+
+Dependencies, build output, generated reports, deployment receipts, virtual environments, and local credentials are ignored by Git. `artifacts/.gitkeep` preserves the output directory in a fresh checkout. Keep real deployment receipts backed up separately; commit only redacted, intentional deployment documentation. `.env.example` is the shared configuration template.

@@ -1,8 +1,36 @@
-lib/
-out/
-cache/
-broadcast/
+# Foundry dependencies, build output, and local chain/deployment records
+/lib/
+/out/
+/cache/
+/broadcast/
+/artifacts/*
+!/artifacts/.gitkeep
+/coverage/
+lcov.info
+
+# Local configuration and signing material; keep shareable templates
 .env
-artifacts/*.json
-artifacts/deployments/
+.env.*
+!.env.example
+!.env.*.example
+/secrets/
+/keystores/
+*.key
+*.pem
+
+# Python caches and virtual environments
 __pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Local editor, operating-system, and log files
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+*.log
