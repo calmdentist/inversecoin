@@ -1,0 +1,8 @@
+PASS insufficient seed rejected before any deployment
+PASS dry run simulates full liquidity initialization without broadcasting
+PASS complete deployment, real seed liquidity, archived receipts and fresh network verification
+PASS rerun reuses ready market without spending gas or seeding twice
+PASS seeded market trades and rerun verifies changed reserves without reseeding
+PASS partial deployment resumes with only initialization; unseeded verification fails
+PASS wrong chain and incompatible existing configuration rejected before transactions
+All deployment scenarios passed on disposable Anvil chain 31337.

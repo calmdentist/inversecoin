@@ -1,0 +1,18 @@
+name: Contracts
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.4.3
+      - run: bash scripts/bootstrap.sh
+      - run: forge fmt --check
+      - run: forge build --sizes
+      - run: forge test
+      - run: forge script script/LocalDemo.s.sol:LocalDemo
+      - run: python3 scripts/test_deployment.py
