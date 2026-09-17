@@ -5,10 +5,16 @@ not a new on-chain trading router. It targets the **undeployed fee-aware routed
 candidate** pinned by `releases/routed-candidate/manifest.json`. The previous live
 Robinhood deployment must not be registered against this model.
 
-Working checkout: `../kyberswap-dex-lib-inverse`, branch
-`codex/inverse-token-hook`. The upstream PR and exact commits are recorded here
-when published. Source reference branch: `codex/kyber-candidate-reference` in
-`calmdentist/inversecoin`; making the repository public is a separate user action.
+Upstream **draft [PR #1692](https://github.com/KyberNetwork/kyberswap-dex-lib/pull/1692)**,
+linked to [integration issue #1691](https://github.com/KyberNetwork/kyberswap-dex-lib/issues/1691).
+Adapter commit: `cec58e2afc6aaf3af990ec4c500fa41292e0e6ea`.
+[Candidate source snapshot](https://github.com/calmdentist/inversecoin/tree/ec44bc670be90057188fcd6d02f14848e6010163):
+`ec44bc670be90057188fcd6d02f14848e6010163`, published on
+`codex/kyber-candidate-reference`. The source repository was still private at submission.
+
+Working checkout: `../kyberswap-dex-lib-inverse`, branch `codex/inverse-token-hook`.
+The original contracts working branch remains `codex/harden-routed-contracts`.
+See [submission.json](submission.json) for exact handoff references.
 
 ## What is implemented
 
@@ -58,3 +64,12 @@ public simulator library and is called out for Kyber's review.
 
 An upstream merge alone does not establish production quote availability or
 Fomo eligibility. Test those after Kyber activates the verified deployment.
+
+## Submission validation
+
+The v4, msgpack and pooltypes suites passed with the race detector (24 packages
+with tests). The final 30-second purity/determinism fuzz run completed 2,041,256
+executions without a failure. This is separate from the 232 EVM differential
+cases (178 successes / 54 expected reverts). The independent source-reference
+checkout reproduced the fixtures and passed the reviewed artifact-hash checker.
+Upstream maintainer review and CI approval are separate from these local checks.
