@@ -10,6 +10,7 @@ library InverseMath {
     uint256 internal constant MAX_RESERVE = type(uint112).max;
     uint256 internal constant MAX_DELTA = uint256(uint128(type(int128).max));
     uint256 internal constant MAX_INDEX = 1e45;
+    uint256 internal constant MIN_INDEX = 1e9;
     uint256 internal constant MIN_RESERVE_SHARES = 1e9;
 
     error InvalidAmount();
@@ -37,15 +38,27 @@ library InverseMath {
         pure
         returns (uint256 result)
     {
-        if (x < MIN_RESERVE_SHARES || x > initialX || y < initialY || y > MAX_RESERVE) {
+        if (x < MIN_RESERVE_SHARES || x > initialX || y == 0 || y > MAX_RESERVE) {
             revert ReserveBounds();
         }
+        result = indexOrZero(x, y, initialX, initialY);
+        if (result == 0) revert IndexBounds();
+    }
+
+    /// @dev Zero indicates a state unsuitable for trading. LP redemption must remain possible there.
+    function indexOrZero(uint256 x, uint256 y, uint256 initialX, uint256 initialY)
+        internal
+        pure
+        returns (uint256 result)
+    {
+        if (x < MIN_RESERVE_SHARES || x > initialX || y == 0 || y > MAX_RESERVE) return 0;
         uint256 relativePrice = FullMath.mulDiv(y, initialX * RAY, x * initialY);
         // Bound before squaring. Never clamp the index: the entire trade reverts.
-        if (relativePrice < RAY || relativePrice > 1e36) revert IndexBounds();
+        // LP withdrawals release shares that can be sold below the launch price.
+        if (relativePrice < 1e18 || relativePrice > 1e36) return 0;
         result = FullMath.mulDiv(relativePrice, relativePrice, RAY);
         if (result > MAX_INDEX || result > FullMath.mulDiv(MAX_DELTA, RAY, initialX)) {
-            revert IndexBounds();
+            return 0;
         }
     }
 

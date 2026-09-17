@@ -34,3 +34,6 @@ venv/
 *.swo
 *~
 *.log
+
+# Local dependency directory or symlink in the reference checkout.
+/lib
