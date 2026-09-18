@@ -1,18 +1,23 @@
 {
   "upstreamPR": "https://github.com/KyberNetwork/kyberswap-dex-lib/pull/1692",
   "upstreamIssue": "https://github.com/KyberNetwork/kyberswap-dex-lib/issues/1691",
-  "upstreamBaseCommit": "7d86da61f9cc2dbf84c798bd12a8ddc0d290dbc4",
+  "upstreamBaseCommit": "f1eb17be3d47fbd55f0c5e1221a27f387dcd4122",
   "adapterRepository": "https://github.com/calmdentist/kyberswap-dex-lib",
   "adapterBranch": "codex/inverse-token-hook",
-  "adapterCommit": "cec58e2afc6aaf3af990ec4c500fa41292e0e6ea",
+  "adapterCommit": "972aa96bcd74524f058f3727d58e4b1ee7fa530b",
   "sourceRepository": "https://github.com/calmdentist/inversecoin",
   "sourceBranch": "codex/kyber-candidate-reference",
   "sourceCommit": "ec44bc670be90057188fcd6d02f14848e6010163",
-  "status": "draft; no production hook registered",
+  "status": "ready for review; no production hook registered",
   "sourceVisibilityAtSubmission": "private",
   "deploymentStatus": "candidate undeployed",
   "solidityCases": 232,
   "soliditySuccesses": 178,
   "solidityReverts": 54,
-  "fuzzExecutions": 2041256
+  "fuzzExecutions": 2041256,
+  "sourceVisibility": "public",
+  "publicSourceVerifiedAt": "2026-09-18T17:52:44.793638+00:00",
+  "finalReviewDate": "2026-09-18",
+  "raceTestPackages": 24,
+  "fixtureReproduction": "byte-for-byte match"
 }
